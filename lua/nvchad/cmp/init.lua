@@ -11,7 +11,7 @@ local M = {
       local icons = require "nvchad.icons.lspkind"
       local icon = icons[item.kind] or ""
 
-      if atom_styled then
+      if atom_styled or cmp_ui.icons_left then
         item.menu = cmp_ui.lspkind_text and item.kind or ""
         item.menu_hl_group = "LineNr"
         item.kind = icon
