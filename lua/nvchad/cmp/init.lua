@@ -1,6 +1,6 @@
 local cmp_ui = require("nvconfig").ui.cmp
 local cmp_style = cmp_ui.style
-local format_kk = require "nvchad.cmp.format"
+local format_color = require "nvchad.cmp.format"
 
 local atom_styled = cmp_style == "atom" or cmp_style == "atom_colored"
 local fields = (atom_styled or cmp_ui.icons_left) and { "kind", "abbr", "menu" } or { "abbr", "kind", "menu" }
@@ -10,21 +10,23 @@ local M = {
     format = function(entry, item)
       local icons = require "nvchad.icons.lspkind"
       local icon = icons[item.kind] or ""
+      local kind = item.kind or ""
 
       if atom_styled then
-        item.menu = cmp_ui.lspkind_text and item.kind or ""
+        item.menu = kind
         item.menu_hl_group = "LineNr"
-        item.kind = " " .. icon
+        item.kind = " " .. icon .. " "
       elseif cmp_ui.icons_left then
-        item.menu = cmp_ui.lspkind_text and item.kind or ""
-        item.menu_hl_group = "CmpItemKind" .. (item.kind or "")
+        item.menu = kind
+        item.menu_hl_group = "CmpItemKind" .. kind
         item.kind = icon
       else
-        item.kind = cmp_ui.lspkind_text and icon .. " " .. item.kind or ""
+        item.kind = " " .. icon .. " " .. kind
+        item.menu_hl_group = "comment"
       end
 
-      if cmp_ui.format_colors.tailwind then
-        format_kk.tailwind(entry, item)
+      if kind == "Color" and cmp_ui.format_colors.tailwind then
+        format_color.tailwind(entry, item, (not (atom_styled or cmp_ui.icons_left) and kind) or "")
       end
 
       return item

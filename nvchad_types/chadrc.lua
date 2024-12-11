@@ -63,7 +63,6 @@
 --- Whether to add colors to icons in nvim-cmp popup menu
 ---@field icons? boolean
 --- Whether to also have the lsp kind highlighted with the icons as well or not
----@field lspkind_text? boolean
 --- nvim-cmp style
 ---@field style? '"default"'|'"flat_light"'|'"flat_dark"'|'"atom"'|'"atom_colored"'
 --- Only has effects when the style is `default`
